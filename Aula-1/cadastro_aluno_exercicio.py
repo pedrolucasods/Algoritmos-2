@@ -11,7 +11,7 @@
 # -Sair do sistema: disponibilizar uma opção para encerrar a execução do programa.
 
 # O programa deverá continuar apresentando o menu e permitindo novas operações até que o usuário escolha a opção de sair.
-import json,os
+import json,os,time
 
 def menu():
     while True:
@@ -45,7 +45,7 @@ def menu():
                 os.system('cls')
                 lista = abrir_arquivo()
                 if(lista):
-                    nome_aluno = input('Informe o nome do Aluno !')
+                    nome_aluno = input('Informe o nome do Aluno:')
                     nao_encontrado = True
                     for aluno in lista:
                         for key,value in aluno.items():
@@ -56,12 +56,14 @@ def menu():
                                 print('Aluno Removido!')
                                 break
                     if(nao_encontrado):
+                        os.system('cls')
                         print('Aluno Não Encontrado!')
                 else:
+                    os.system('cls')
                     print('Sua Turma Está Vazia')
-                    while True:
-                        input('Press Enter...')
-                        break
+                while True:
+                    input('Press Enter...')
+                    break
             case 4:
                 os.system('cls')
                 lista = abrir_arquivo()
@@ -73,17 +75,37 @@ def menu():
                     print('Sala Está Vazia')
                 while True:
                     input('Press enter...')
+                    os.system('cls')
                     break
             case 5:
                 lista = abrir_arquivo()
+                os.system('cls')
                 if(lista):
                     medias = [sum(alunos['Notas'])/4 for alunos in lista]
-                    alunos_medias_altas = [alunos['Nome'] if (sum(alunos['Notas'])/4 == max(medias)) else print() for alunos in lista]
+                    alunos_medias_altas = [alunos['Nome'] if (sum(alunos['Notas'])/4 == max(medias)) else 0 for alunos in lista]
+                    escolhidos = list(filter(lambda x: x!=0,alunos_medias_altas))
+                    print(f"Maior Media : {max(medias)}\nAlunos com essa media:\n{escolhidos}\n")
+                else:
+                    print('Sala Está Vazia')
+                while True:
+                    input('Press enter!')
                     os.system('cls')
-                    print(alunos_medias_altas)
-                    while True:
-                        input('Press enter!')
-                        break
+                    break
+            case 6:
+                os.system('cls')
+                print("Fechando o sistema",end="",flush=True)
+                
+                for i in range(3):
+                    print('.',end='',flush=True)
+                    time.sleep(1)
+                os.system('cls')
+                print('Tenha um bom Dia!')
+                break
+            case _:
+                os.system('cls')
+                print('Caso Inválido!')
+
+                
 
 
             
